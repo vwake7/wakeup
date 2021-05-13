@@ -12,13 +12,16 @@
   </head>
   <body>
 	<!-- Header -->
-	<div class="row p-2 bg-dark text-white sticky-top" >		
+	<div class="container-fluid bg-dark text-white p-2" style="position:fixed;top:0px;" >	
+	<div class="row "  >		
 		<div class="col-5 "> <h4> Wakeup </h4> </div>
 		<div class="col-4 "></div>
 		<div class="col-1 "><i class="material-icons" >search</i></div>
-		<div class="col-1 "><a style="color:white"  data-bs-toggle="modal" href="#sendOTPmodal"><i class="material-icons">storefront</i></a></div>			
+		<div class="col-1 "><a style="color:white"  data-bs-toggle="modal" href="#sendOTPmodal"><i class="material-icons">login</i></a></div>			
+	</div>	
 	</div>	
 	  <!-- The Modal sendOTPmodal-->
+	<form name="verifyOTPform" action="/signin" onsubmit="return verifyOTP()" method="post">  
 	<div class="modal fade" id="sendOTPmodal">
 		<div class="modal-dialog ">
 			<div class="modal-content">
@@ -35,13 +38,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Mobile</span>
 					</div>
-					<input type="tel" id="mobileid" name= "mobilenumber" class="form-control" placeholder="9876543210" pattern="[0-9]{10}" maxlength="10" >
+					<input type="tel" id="mobileid" name= "mobilenumber" class="form-control" placeholder="9876543210" maxlength="10" >
 				</div>
 				<div><p style="visibility:hidden;" id="incorrectmobilemsg">Incorrect Mobile Number</p></div>	
 				<div class="p-2 d-flex justify-content-center">  	
 		<!--			<a data-bs-dismiss="modal" data-bs-toggle="modal" href="#verifyOTPmodal" class="btn btn-dark" role="button">Send OTP</a> 
 					<a class="btn btn-dark" role="button" onclick="sendOTP()">Send OTP</a>	-->
-					<button type="button" class="btn btn-dark" id="myBtn" onclick="sendOTP()">Send OTP</button>
+					<button type="button" class="btn btn-dark" onclick="sendOTP()">Send OTP</button>
 				</div>
 
 				</div>
@@ -61,27 +64,32 @@
 				</div>
         
         <!-- Modal body --> 
+				
 				<div class="modal-body">
 				<div class="d-flex justify-content-center"> <p> Enter the OTP sent to your mobile # <span id = "display_mobile"></span></p> </div>
 				<div class="input-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text">OTP</span>
 					</div>
-					<input type="tel" name = "mobilenumber" class="form-control" placeholder="543210" pattern="[0-9]{6}" maxlength ="6" >
-				</div>	
+					<input type="tel" id="otpid" class="form-control" placeholder="543210" maxlength ="6" >
+				</div>
+				<div><p style="visibility:hidden;" id="incorrectotpmsg">Incorrect OTP</p></div>	
 				<div class="p-2 d-flex justify-content-center">  	
-					<input type="submit" class="btn btn-dark" value="Verify OTP">
+					<input type="submit" class="btn btn-dark" name="Verify OTP">
 				</div>
-
 				</div>
-			
+				
 			</div>
 		</div>
 	</div>
+	</form>
 
     <!-- Details -->
-	{{range .}}
-	<div class="row">		
+	<div class="d-flex flex-column" id="flex1">
+		<div class="d-flex flex-column p-2">
+			<div class="d-flex"><pre> </pre></div> 
+		</div>
+	{{range .}}	
 	<div class="row  bg-white text-black">		
 		<div class="col-4 px-4 pt-4 pb-0"><img class="img rounded" src="/assets/{{.Doc.Business.Image}}" width="84" height="84"></div>
 		<div class="col-8 px-3 pt-3 pb-0">
@@ -95,9 +103,9 @@
 	</div>	
 	<div class="row bg-white text-black px-4 ">
 			<div class="col-1 "><i class="material-icons" >thumb_up</i></div>
-			<div class="col-1 ">100</div>
+			<div class="col-1 ">{{.Doc.Business.Likes}}</div>
 			<div class="col-1 "><i class="material-icons" >thumb_down</i></div>
-			<div class="col-2 ">2</div>
+			<div class="col-2 ">{{.Doc.Business.Dislikes}}</div>
 			<div class="col-2 "><i class="material-icons" >chat</i></div>
 			<div class="col-1 "><i class="material-icons" >phone</i></div>
 			<div class="col-3 ">{{.Doc.Business.Phone}}</div>
@@ -109,8 +117,8 @@
 		function sendOTP() { 
 		// validate the mobile #
 			var x = document.getElementById("mobileid").value
-		console.log(x)
-			if (x.length == 10) {
+			var mobilepattern = /[0-9]{10}/
+			if (mobilepattern.test(x)) {
 		// placeholder to send otp
 		//hide sendOTPmodal	
 				document.getElementById("sendOTPmodal").className="modal fade"; 
@@ -120,14 +128,28 @@
 				var sendOTPmodale = document.getElementById("verifyOTPmodal")
 				sendOTPmodale.style.display = "block";
 				sendOTPmodale.style.paddingRight = "0px";
-				sendOTPmodale.className="modal fade show"; 
-				
-			console.log("inside if")
+				sendOTPmodale.className="modal fade show"; 			
 			} else {
 		//display error message	
 				document.getElementById("incorrectmobilemsg").style.visibility = 'visible'
 			}
-		}
+		};
+		
+		function verifyOTP() { 
+		// validate the otp #
+			var x = document.getElementById("otpid").value
+		//	var otp = "123456"
+			if (x==otp) {
+		//successfully logged in - open the home page after login
+				return true
+			} else {
+		//display error message	- unable to verify otp
+				console.log(x)
+				document.getElementById("incorrectotpmsg").style.visibility = 'visible'
+				return false
+			}
+		};
+		
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
   </body>

@@ -22,28 +22,42 @@
   </head>
   <body>
 	<!-- Header -->
-	<div class="row p-2 bg-dark text-white" >		
-		<div class="col-5 "> <h4> Wakeup </h4> </div>
-		<div class="col-4 "></div>
-		<div class="col-1 "></div>
-		<div class="col-1 "><i class="material-icons" >search</i></div>
+	<div class="container-fluid bg-dark text-white p-2" style="position:fixed;top:0px;" >	
+		<div class="row">
+			<div class="col-5 "> <h4> Wakeup </h4> </div>
+			<div class="col-4 "></div>
+			<div class="col-1 "></div>
+			<div class="col-1 "><i class="material-icons" >search</i></div>
+		</div>
 	</div>
 	<!-- tab -->
-	<ul class="nav nav-tabs nav-fill bg-dark" role="tablist" >
-		<li class="nav-item">
-			<a class="nav-link active" data-bs-toggle="tab" href="#tab1"><i class="material-icons">history</i></a>
-		</li>
-		<li class="nav-item"> 
-			<a class="nav-link" data-bs-toggle="tab" href="#tab2"><i class="material-icons">storefront</i></a>
-		</li>
-	</ul>
 	
-	<div class="tab-content" >
+	<div class="container-fluid p-0" style="position:fixed;top:50px;" >
+		<ul class="nav nav-tabs nav-fill bg-dark"  role="tablist" >
+			<li class="nav-item">
+				<a class="nav-link active" data-bs-toggle="tab" href="#tab1"><i class="material-icons">history</i></a>
+			</li>
+			<li class="nav-item"> 
+				<a class="nav-link" data-bs-toggle="tab" href="#tab2"><i class="material-icons">storefront</i></a>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="container tab-content"  style="margin-top:100px;" >
 		<div class="tab-pane container  active" id="tab1">
 			<p>Standard tab panel created on bootstrap using nav-tabs</p>
 		</div>
 		<div class="tab-pane container fade" id="tab2">
-			<p>Notice the gap between the content and tab after applying a background color</p>
+			<p>Notice the gap between the content and tab after applying a background color Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in iaculis justo. Vivamus consequat, quam non viverra tincidunt, sem diam condimentum odio, ut dictum lacus quam id magna. Sed vitae ex a lorem luctus rhoncus sed ac diam. Nam aliquam sed odio at ultricies. Etiam non consectetur augue. Sed eu vestibulum tellus. Aenean at est est. Nam sed hendrerit tellus. Donec efficitur elit metus, eu dictum mi commodo a. Nulla id risus massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent viverra egestas ante, nec pulvinar felis dictum id.
+
+Suspendisse malesuada maximus neque sollicitudin lobortis. Vivamus vulputate lacus aliquet lectus feugiat venenatis. Morbi vitae condimentum risus. Fusce vel malesuada risus. Maecenas eu dapibus diam. Maecenas interdum pellentesque tortor vel consequat. Ut vestibulum tellus nunc. Morbi malesuada consequat odio, id tincidunt massa lobortis vitae. Quisque ultrices volutpat volutpat.
+
+Integer ullamcorper lacus et tellus fringilla tincidunt. In sed tellus feugiat tellus dictum ultrices. Etiam ultricies purus tincidunt mi commodo mattis. Quisque quis cursus turpis, at tincidunt lacus. In et est sit amet lacus mattis scelerisque eget sed nunc. Integer sit amet urna a leo tincidunt efficitur. Maecenas egestas ultrices ultricies. Nullam sed maximus sem. Morbi et vehicula risus. Cras egestas, tortor ut ornare bibendum, ex purus facilisis purus, eu egestas turpis tellus in nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla eget nibh justo. Phasellus placerat sem eu mattis accumsan.
+
+Vestibulum sem lectus, volutpat ut egestas ut, pulvinar vel enim. Ut dignissim malesuada magna sit amet venenatis. Pellentesque posuere varius metus, non lobortis nisl placerat et. Phasellus odio dolor, aliquet et fermentum at, egestas eget magna. Pellentesque a eros vitae lectus tempus aliquam. Pellentesque at erat mi. Aenean eget feugiat diam. Nunc tincidunt lacus eleifend fermentum porttitor. Fusce luctus molestie tristique. Donec maximus malesuada ligula id vehicula.
+
+Vivamus ultricies feugiat porta. Aenean pretium, mauris eget tristique molestie, neque odio aliquet ipsum, eu mattis mauris lorem at est. Sed laoreet facilisis lectus, sit amet tempor risus bibendum sit amet. Donec dignissim turpis sed ipsum convallis, non condimentum magna convallis. Ut risus velit, lobortis in luctus a, sollicitudin vel elit. Morbi vel lorem ante. Sed at enim a velit vestibulum lacinia. Nullam vel tempor nisi, ut lacinia dolor. Maecenas vitae ex nec dui dictum lobortis non et erat. Nunc eget orci consequat, ullamcorper quam nec, sollicitudin sapien. Nullam at elementum enim, non egestas risus. Aliquam luctus ligula sapien, sed laoreet ante semper id. Sed sed dignissim velit. In justo augue, pellentesque quis magna sed, venenatis fringilla turpis. Mauris imperdiet, metus a consectetur pharetra, erat justo porta justo, sit amet euismod nunc urna ac justo.</p>
+		<div class="container" style="position:fixed;bottom:50px;left:145px"><a style="color:black"  href="/addbusiness"><i class="material-icons" style="font-size:48px">add_circle</i></a></div>
 		</div>
 	</div>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>

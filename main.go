@@ -9,8 +9,11 @@ import (
 	"io/ioutil"
 	"time"
 	"encoding/json"
+	"database/sql"
 
 	"github.com/joho/godotenv"
+	"github.com/satori/go.uuid"
+	_ "github.com/mattn/go-sqlite3"
 //	"github.com/PuerkitoBio/goquery"
 //	"github.com/tidwall/gjson"
 )
@@ -54,6 +57,8 @@ type Businesstable struct {
 }
 
 var businessobject Businesstable
+var sqlcon *sql.DB
+var insertsql *sql.Stmt
 
 //Index page
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -81,33 +86,65 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
     if err != nil { log.Print("template executing error: ", err) }	
 }
 
-//sendOTP page
-func sendOTPHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "sendOTP.html")
+//login page
+func signinHandler(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	mobile:=r.FormValue("mobilenumber")
+	session_token:=uuid.NewV4().String()
+	
+	//insert token into sql
+	_,err:=insertsql.Exec(mobile,session_token)
+	if err != nil { log.Println("Error executing Insert Stmt",err)	}
+	
+	//set cookie
+	http.SetCookie(w, &http.Cookie{
+		Name:    "session_token",
+		Value:   session_token,
+		Expires: time.Now().Add(24 * time.Hour),
+	})
+	http.ServeFile(w, r, "home.html")
 }
 
-//verify page
-func verifyOTPHandler(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	log.Printf("%s",r.FormValue("mobilenumber"))
-	http.ServeFile(w, r, "verifyOTP.html")
+//addbusiness
+func addbusinessHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "addbusiness.html")
+}
+
+//post signin
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "home.html")
+}
+
+//open db connection and prepare sql
+func opensqlDB() {
+	sqlconn,err:=sql.Open("sqlite3","./auth")
+	if err != nil { log.Print("error opening sql db: ", err)	}
+	
+	insertsql,err=sqlconn.Prepare("INSERT INTO session_auth (mobile, session_token, up_ts) VALUES(?,?,strftime('%s','now'))")
+	if err != nil { log.Print("Prepare of INSERT failed: ", err)	}
+	
+	//defer insertsql.Close() // Prepared statements take up server resources and should be closed after use
+ 
 }
 
 func main() {	
 	err := godotenv.Load()
-	if err != nil { log.Println("Error loading .env file")	}
+	if err != nil { log.Println("Error loading .env file", err)	}
 	
 	port := os.Getenv("PORT")
 	if port == "" {	port = "3000" }
-
+	
+	opensqlDB();
+	
 	fs := http.FileServer(http.Dir("assets"))
 	
 	mux := http.NewServeMux()
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
 	
 	mux.HandleFunc("/index", indexHandler)
-	mux.HandleFunc("/sendotp", sendOTPHandler)
-	mux.HandleFunc("/verifyotp", verifyOTPHandler)
+	mux.HandleFunc("/signin", signinHandler)
+	mux.HandleFunc("/addbusiness", addbusinessHandler)
+	mux.HandleFunc("/home", homeHandler)
 	
 	http.ListenAndServe(":"+port, mux)	
 }

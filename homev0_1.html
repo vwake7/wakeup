@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<title>Wakeup</title>
+	<style>
+		.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+			background-color: white;
+			color:black
+		}	
+		.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
+			background-color: dark;
+			color:white
+		}
+	</style>	
+  </head>
+  <body>
+	<!-- Header -->
+	<div class="row p-2 bg-dark text-white" >		
+		<div class="col-5 "> <h4> Wakeup </h4> </div>
+		<div class="col-4 "></div>
+		<div class="col-1 "></div>
+		<div class="col-1 "><i class="material-icons" >search</i></div>
+	</div>
+	<!-- tab -->
+	<ul class="nav nav-tabs nav-fill bg-dark" role="tablist" >
+		<li class="nav-item">
+			<a class="nav-link active" data-bs-toggle="tab" href="#tab1"><i class="material-icons">history</i></a>
+		</li>
+		<li class="nav-item"> 
+			<a class="nav-link" data-bs-toggle="tab" href="#tab2"><i class="material-icons">storefront</i></a>
+		</li>
+	</ul>
+	
+	<div class="tab-content" >
+		<div class="tab-pane container  active" id="tab1">
+			<p>Standard tab panel created on bootstrap using nav-tabs</p>
+		</div>
+		<div class="tab-pane container fade" id="tab2">
+			<p>Notice the gap between the content and tab after applying a background color</p>
+		</div>
+	</div>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+		
+  </body>
+</html>
